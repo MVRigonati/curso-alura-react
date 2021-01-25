@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent, FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Note } from "../Note";
 import './NewNoteForm.css';
 
@@ -6,49 +6,45 @@ interface Props {
 	onNewNote: (newNote: Note) => void;
 }
 
-export default class NewNoteForm extends Component<Props> {
+const NewNoteForm: React.FC<Props> = (props) => {
 
-	private newNote: Note;
+	const [title, setTitle] = useState('');
+	const [text, setText] = useState('');
 
-	constructor(props: Props) {
-		super(props);
-		this.newNote = new Note('', '');
-	}
-
-	private handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		event.stopPropagation();
-		this.newNote.title = event.target.value;
+		setTitle(event.target.value);
 	}
 
-	private handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+	const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		event.stopPropagation();
-		this.newNote.text = event.target.value;
+		setText(event.target.value);
 	}
 
-	private createNote = (event: FormEvent<HTMLFormElement>) => {
+	const createNote = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		this.props.onNewNote(this.newNote);
+		props.onNewNote(new Note(title, text));
 	}
 
-	render() {
+	return (
+		<form className="new-note-form" onSubmit={createNote}>
+			<input type="text"
+				placeholder="Título"
+				value={title}
+				className="new-note-form_input"
+				onChange={handleTitleChange} />
 
-        return (
-            <form className="new-note-form" onSubmit={this.createNote}>
-				<input type="text"
-					placeholder="Título"
-					className="new-note-form_input"
-					onChange={this.handleTitleChange} />
+			<textarea rows={15}
+				placeholder="Escreva sua nota..."
+				value={text}
+				className="new-note-form_input"
+				onChange={handleTextChange} />
 
-				<textarea rows={15}
-					placeholder="Escreva sua nota..."
-					className="new-note-form_input"
-					onChange={this.handleTextChange} />
-
-				<button className="new-note-form_submit">Criar Nota</button>
-			</form>
-        );
-
-    }
+			<button className="new-note-form_submit">Criar Nota</button>
+		</form>
+	);
 
 }
+
+export default NewNoteForm;

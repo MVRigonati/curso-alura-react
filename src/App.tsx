@@ -1,33 +1,27 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import NotesList from './components/NotesList';
 import NewNoteForm from './components/NewNoteForm';
 import { Note } from "./components/Note";
 import "./assets/App.css";
 import "./assets/index.css";
 
-interface State {
-	notes: Note[];
-}
+const App: React.FC<{}> = (props) => {
 
-export default class App extends Component<{}, State> {
+	const notesInit: Note[] = [];
+	const [notes, setNotes] = useState(notesInit);
 
-	constructor(props: {}) {
-		super(props);
-		this.state = { notes: [] };
-	}
-
-	private newNote = (newNote: Note)  => {
-		const notesUpdated = [...this.state.notes];
+	const newNote = (newNote: Note) => {
+		const notesUpdated = [...notes];
 		notesUpdated.push(newNote);
-		this.setState({ notes: notesUpdated });
+		setNotes(notesUpdated);
 	};
 
-	render() {
-		return (
-			<section className="content">
-				<NewNoteForm onNewNote={this.newNote} />
-				<NotesList notes={this.state.notes} />
-			</section>
-		);
-	}
+	return (
+		<section className="content">
+			<NewNoteForm onNewNote={newNote} />
+			<NotesList notes={notes} />
+		</section>
+	);
 }
+
+export default App;

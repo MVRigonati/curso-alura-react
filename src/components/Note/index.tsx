@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./Note.css";
 
 export class Note {
@@ -15,16 +15,17 @@ interface Props {
     note: Note;
 }
 
-export default class NoteView extends Component<Props> {
-    
-	render() {
-        return (
-            <section className="note">
-                <header className="note_header">
-                    <h3 className="note_text">{this.props.note.title}</h3>
-                </header>
-                <p className="note_title">{this.props.note.text}</p>
-            </section>
-        );
-    }
+const NoteView: React.FC<Props> = (props) => {
+
+    return (
+        <section className="note">
+            <header className="note_header">
+                <h3 className="note_text">{props.note.title}</h3>
+            </header>
+            <p className="note_title">{props.note.text}</p>
+        </section>
+    );
+
 }
+
+export default NoteView;
