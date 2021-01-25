@@ -4,6 +4,7 @@ import './NotesList.css';
 
 interface Props {
 	notes: Note[];
+	onRemoveNote: (index: number) => void;
 }
 
 const NotesList: React.FC<Props> = (props) => {
@@ -12,7 +13,7 @@ const NotesList: React.FC<Props> = (props) => {
 		<ul className="notes-list">
 			{props.notes.map((note, i) => (
 				<li className="notes-list_item" key={i}>
-					<NoteView note={note} />
+					<NoteView note={note} index={i} onRemoveNote={props.onRemoveNote} />
 				</li>
 			))}
 		</ul>

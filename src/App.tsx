@@ -11,15 +11,20 @@ const App: React.FC<{}> = (props) => {
 	const [notes, setNotes] = useState(notesInit);
 
 	const newNote = (newNote: Note) => {
+		const notesUpdated = [...notes, newNote];
+		setNotes(notesUpdated);
+	};
+
+	const removeNote = (index: number) => {
 		const notesUpdated = [...notes];
-		notesUpdated.push(newNote);
+		notesUpdated.splice(index, 1);
 		setNotes(notesUpdated);
 	};
 
 	return (
 		<section className="content">
 			<NewNoteForm onNewNote={newNote} />
-			<NotesList notes={notes} />
+			<NotesList notes={notes} onRemoveNote={removeNote} />
 		</section>
 	);
 }
