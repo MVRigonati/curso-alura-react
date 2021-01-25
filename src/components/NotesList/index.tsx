@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import Note from '../Note';
+import NoteView, { Note } from '../Note';
 import './NotesList.css';
 
-export default class NotesList extends Component {
+interface Props {
+	notes: Note[];
+}
 
-	notesList: string[] = ["Work", "Work", "Study"];
+export default class NotesList extends Component<Props> {
 
 	render() {
 		return (
 			<ul className="notes-list">
-				{this.notesList.map((category, i) => (
+				{this.props.notes.map((note, i) => (
 					<li className="notes-list_item" key={i}>
-						<div>{category}</div>
-						<Note />
+						<NoteView note={note}/>
 					</li>
 				))}
 			</ul>
