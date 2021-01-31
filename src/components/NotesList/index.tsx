@@ -1,19 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import NoteView, { Note } from '../Note';
 import './NotesList.css';
 
-interface Props {
-	notes: Note[];
-	onRemoveNote: (index: number) => void;
-}
+const NotesList: React.FC = () => {
 
-const NotesList: React.FC<Props> = (props) => {
+	let notes = useSelector<Note[], Note[]>(s => s);
 
 	return (
 		<ul className="notes-list">
-			{props.notes.map((note, i) => (
+			{notes.map((note, i) => (
 				<li className="notes-list_item" key={i}>
-					<NoteView note={note} index={i} onRemoveNote={props.onRemoveNote} />
+					<NoteView note={note} index={i} />
 				</li>
 			))}
 		</ul>

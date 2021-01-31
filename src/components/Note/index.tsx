@@ -1,5 +1,6 @@
 import React from 'react';
 import { ReactComponent as DeleteImage } from "../../assets/img/delete-24px.svg";
+import NotesListStore, { removeNote } from '../../store';
 import "./Note.css";
 
 export class Note {
@@ -15,7 +16,6 @@ export class Note {
 interface Props {
     note: Note;
     index: number;
-    onRemoveNote: (index: number) => void;
 }
 
 const NoteView: React.FC<Props> = (props) => {
@@ -24,7 +24,7 @@ const NoteView: React.FC<Props> = (props) => {
         <section className="note">
             <header className="note_header">
                 <h3 className="note_text">{props.note.title}</h3>
-                <DeleteImage onClick={() => props.onRemoveNote(props.index)} />
+                <DeleteImage onClick={() => NotesListStore.dispatch(removeNote(props.index))} />
             </header>
             <p className="note_title">{props.note.text}</p>
         </section>

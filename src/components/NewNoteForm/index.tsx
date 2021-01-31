@@ -1,12 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import NotesListStore, { addNote } from '../../store';
 import { Note } from "../Note";
 import './NewNoteForm.css';
 
-interface Props {
-	onNewNote: (newNote: Note) => void;
-}
-
-const NewNoteForm: React.FC<Props> = (props) => {
+const NewNoteForm: React.FC = () => {
 
 	const [title, setTitle] = useState('');
 	const [text, setText] = useState('');
@@ -24,7 +21,7 @@ const NewNoteForm: React.FC<Props> = (props) => {
 	const createNote = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		props.onNewNote(new Note(title, text));
+		NotesListStore.dispatch(addNote(new Note(title, text)));
 	}
 
 	return (
