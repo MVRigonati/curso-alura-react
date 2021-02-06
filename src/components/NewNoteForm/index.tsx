@@ -1,12 +1,17 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import NotesListStore, { addNote } from '../../store';
+import React, { ChangeEvent, FormEvent, useState, Dispatch } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { addNote } from '../../store/action/notes';
+import { MyAction } from '../../store/store';
 import { Note } from "../Note";
+
 import './NewNoteForm.css';
 
 const NewNoteForm: React.FC = () => {
 
 	const [title, setTitle] = useState('');
 	const [text, setText] = useState('');
+	const dispatch = useDispatch<Dispatch<MyAction>>();
 
 	const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		event.stopPropagation();
@@ -21,7 +26,7 @@ const NewNoteForm: React.FC = () => {
 	const createNote = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
-		NotesListStore.dispatch(addNote(new Note(title, text)));
+		dispatch(addNote(new Note(title, text)));
 	}
 
 	return (

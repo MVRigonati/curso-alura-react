@@ -1,6 +1,9 @@
 import React from 'react';
 import { ReactComponent as DeleteImage } from "../../assets/img/delete-24px.svg";
-import NotesListStore, { removeNote } from '../../store';
+
+import { removeNote } from '../../store/action/notes';
+import NotesListStore from '../../store/store';
+
 import "./Note.css";
 
 export class Note {

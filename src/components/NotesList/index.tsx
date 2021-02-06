@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { MyStore } from '../../store/store';
 import NoteView, { Note } from '../Note';
 import './NotesList.css';
 
 const NotesList: React.FC = () => {
 
-	let notes = useSelector<Note[], Note[]>(s => s);
+	const notes = useSelector<MyStore, Note[]>(s => s.notes);
 
 	return (
 		<ul className="notes-list">
