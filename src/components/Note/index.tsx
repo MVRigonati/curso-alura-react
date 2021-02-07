@@ -9,10 +9,12 @@ import "./Note.css";
 export class Note {
     public title: string;
     public text: string;
+    public category: string;
 
-    constructor(title: string, text: string) {
+    constructor(title: string, text: string, category: string) {
         this.title = title;
         this.text = text;
+        this.category = category;
     }
 }
 
@@ -28,6 +30,7 @@ const NoteView: React.FC<Props> = (props) => {
             <header className="note_header">
                 <h3 className="note_text">{props.note.title}</h3>
                 <DeleteImage onClick={() => NotesListStore.dispatch(removeNote(props.index))} />
+                <h4>{props.note.category}</h4>
             </header>
             <p className="note_title">{props.note.text}</p>
         </section>
